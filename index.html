@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Health Form</title>
+  <style>
+    body{
+        margin-top:10rem;
+       
+    }
+    .form-container {
+      width: 400px;
+      margin: 0 auto;
+    }
+    .form-container input, .form-container button {
+      width: 100%;
+      margin-bottom: 10px;
+      min-height: 2.0rem;
+    }
+    .form-container button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+    .form-container button:hover {
+      opacity: 0.8;
+    }
+    .slide-down {
+      animation: slideDown 0.5s ease forwards;
+      opacity: 0;
+    }
+    @keyframes slideDown {
+      0% {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <form id="health-form" enctype="multipart/form-data">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required>
+
+      <label for="weight">Weight:</label>
+      <input type="number" id="weight" name="weight" required>
+
+      <label for="email">Email ID:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="health-report">Upload Health Report:</label>
+      <input type="file" id="health-report" name="health-report" accept=".pdf" required>
+
+      <button type="submit" id="submit-btn">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('health-form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    submitBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+
+      fetch('insert_data.php', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.text())
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+
+    window.addEventListener('DOMContentLoaded', function() {
+      const formContainer = document.querySelector('.form-container');
+      formContainer.classList.add('slide-down');
+    });
+  </script>
+</body>
+</html>
