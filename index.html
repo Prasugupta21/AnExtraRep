@@ -58,9 +58,9 @@
       <input type="email" id="email" name="email" required>
 
       <label for="health-report">Upload Health Report:</label>
-      <input type="file" id="health-report" name="health-report" accept=".pdf" required>
+      <input type="file" id="health-report" name="health_report" accept=".pdf" required>
 
-      <button type="submit" id="submit-btn">Submit</button>
+      <button type="submit" id="submit-btn" name="btn">Submit</button>
     </form>
   </div>
 
@@ -73,7 +73,7 @@
 
       const formData = new FormData(form);
 
-      fetch('insert_data.php', {
+      fetch('connect.php', {
         method: 'POST',
         body: formData
       })
